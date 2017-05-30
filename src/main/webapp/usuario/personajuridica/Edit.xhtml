@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+	<ui:composition>
+
+		<p:dialog id="PersonajuridicaEditDlg" widgetVar="PersonajuridicaEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditPersonajuridicaTitle}">
+			<h:form id="PersonajuridicaEditForm">
+				<h:panelGroup id="display">
+					<p:panelGrid columns="2" rendered="#{personajuridicaController.selected != null}">
+						<p:outputLabel value="#{bundle.EditPersonajuridicaLabel_nombre}" for="nombre" />
+						<p:inputText id="nombre" value="#{personajuridicaController.selected.nombre}" title="#{bundle.EditPersonajuridicaTitle_nombre}" required="true" requiredMessage="#{bundle.EditPersonajuridicaRequiredMessage_nombre}"/>
+						<p:outputLabel value="#{bundle.EditPersonajuridicaLabel_nit}" for="nit" />
+						<p:inputText id="nit" value="#{personajuridicaController.selected.nit}" title="#{bundle.EditPersonajuridicaTitle_nit}" required="true" requiredMessage="#{bundle.EditPersonajuridicaRequiredMessage_nit}"/>
+						<p:outputLabel value="#{bundle.EditPersonajuridicaLabel_direccion}" for="direccion" />
+						<p:inputText id="direccion" value="#{personajuridicaController.selected.direccion}" title="#{bundle.EditPersonajuridicaTitle_direccion}" />
+						<p:outputLabel value="#{bundle.EditPersonajuridicaLabel_telefono}" for="telefono" />
+						<p:inputText id="telefono" value="#{personajuridicaController.selected.telefono}" title="#{bundle.EditPersonajuridicaTitle_telefono}" />
+
+						<p:outputLabel value="#{bundle.departamento}" for="departamento" />
+						<p:selectOneMenu id="departamento" value="#{municipiosdaneController.departamentosdaneDDSel}">
+							<f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+							<f:selectItems value="#{departamentosdaneController.itemsAvailableSelectOne}"
+														 var="departamentosdaneItem"
+														 itemValue="#{departamentosdaneItem}"/>
+							<p:ajax event="change" update="municipiosdane" immediate="true"/>
+						</p:selectOneMenu>						
+
+						<p:outputLabel value="#{bundle.EditPersonajuridicaLabel_municipiosdane}" for="municipiosdane" />
+						<p:selectOneMenu id="municipiosdane" value="#{personajuridicaController.selected.municipiosdane}" >
+							<f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+							<f:selectItems value="#{municipiosdaneController.itemsAvailableSelectOneByDepartamento}"
+														 var="municipiosdaneItem"
+														 itemValue="#{municipiosdaneItem}"/>
+						</p:selectOneMenu>
+					</p:panelGrid>
+					<p:commandButton actionListener="#{personajuridicaController.update}" value="#{bundle.Save}" update="display,:PersonajuridicaListForm:datalist,:growl" oncomplete="handleSubmit(args, 'PersonajuridicaEditDialog');"/>
+					<p:commandButton value="#{bundle.Cancel}" onclick="PersonajuridicaEditDialog.hide()"/>
+				</h:panelGroup>
+			</h:form>
+		</p:dialog>
+
+	</ui:composition>
+</html>

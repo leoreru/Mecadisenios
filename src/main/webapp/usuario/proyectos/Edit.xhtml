@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+	<ui:composition>
+
+		<p:dialog id="ProyectosEditDlg" widgetVar="ProyectosEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditProyectosTitle}" onShow="actualizarDlgEd('ProyectosEditForm','idClientePerNat','idClientePerJur')">
+			<h:outputScript library="js" name="MecadisScripts.js"/>
+			<h:form id="ProyectosEditForm">
+				<h:panelGroup id="display">
+					<p:panelGrid columns="2" rendered="#{proyectosController.selected != null}">
+						<p:outputLabel value="#{bundle.EditProyectosLabel_nombre}" for="nombre" />
+						<p:inputText id="nombre" value="#{proyectosController.selected.nombre}" title="#{bundle.EditProyectosTitle_nombre}" required="true" requiredMessage="#{bundle.EditProyectosRequiredMessage_nombre}"/>
+						<p:outputLabel value="#{bundle.EditProyectosLabel_descripcion}" for="descripcion" />
+						<p:inputText id="descripcion" value="#{proyectosController.selected.descripcion}" title="#{bundle.EditProyectosTitle_descripcion}" />
+						<p:outputLabel value="#{bundle.EditProyectosLabel_porcAdmin}" for="porcAdmin" />
+						<p:inputText id="porcAdmin" value="#{proyectosController.selected.porcAdmin}" title="#{bundle.EditProyectosTitle_porcAdmin}" required="true" requiredMessage="#{bundle.EditProyectosRequiredMessage_porcAdmin}"/>
+						<p:outputLabel value="#{bundle.EditProyectosLabel_porcComision}" for="porcComision" />
+						<p:inputText id="porcComision" value="#{proyectosController.selected.porcComision}" title="#{bundle.EditProyectosTitle_porcComision}" required="true" requiredMessage="#{bundle.EditProyectosRequiredMessage_porcComision}"/>
+						<p:outputLabel value="#{bundle.EditProyectosLabel_porcUtilidad}" for="porcUtilidad" />
+						<p:inputText id="porcUtilidad" value="#{proyectosController.selected.porcUtilidad}" title="#{bundle.EditProyectosTitle_porcUtilidad}" required="true" requiredMessage="#{bundle.EditProyectosRequiredMessage_porcUtilidad}"/>
+
+						<p:outputLabel value="#{bundle.clienteEsPersonaNatural}" for="chboxEsPerNat" />
+						<h:selectBooleanCheckbox id="chboxEsPerNat" onclick="actualizarDlgEd('ProyectosEditForm','idClientePerNat', 'idClientePerJur')" value="#{proyectosController.perNat}"/>
+
+						<p:outputLabel value="#{bundle.EditProyectosLabel_idClientePerJur}" for="idClientePerJur" />
+						<p:selectOneMenu id="idClientePerJur" value="#{proyectosController.selected.idClientePerJur}" required="true">
+							<f:selectItems value="#{personajuridicaController.itemsAvailableSelectOne}"
+														 var="idClientePerJurItem"
+														 itemValue="#{idClientePerJurItem}"/>
+						</p:selectOneMenu>
+						<p:outputLabel value="#{bundle.EditProyectosLabel_idClientePerNat}" for="idClientePerNat" />
+						<p:selectOneMenu id="idClientePerNat" value="#{proyectosController.selected.idClientePerNat}" required="true">
+							<f:selectItems value="#{personanaturalController.itemsAvailableSelectOne}"
+														 var="idClientePerNatItem"
+														 itemValue="#{idClientePerNatItem}"/>
+						</p:selectOneMenu>
+					</p:panelGrid>
+					<p:commandButton actionListener="#{proyectosController.update}" value="#{bundle.Save}" update="display,:ProyectosListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ProyectosEditDialog');"/>
+					<p:commandButton value="#{bundle.Cancel}" onclick="ProyectosEditDialog.hide()"/>
+				</h:panelGroup>
+			</h:form>
+		</p:dialog>
+
+	</ui:composition>
+</html>

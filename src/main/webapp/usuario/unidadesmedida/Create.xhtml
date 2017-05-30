@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+	<ui:composition>
+
+		<p:dialog id="UnidadesmedidaCreateDlg" widgetVar="UnidadesmedidaCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateUnidadesmedidaTitle}">
+			<h:form id="UnidadesmedidaCreateForm">
+				<h:panelGroup id="display">
+					<p:panelGrid columns="2" rendered="#{unidadesmedidaController.selected != null}">
+						<p:outputLabel value="#{bundle.CreateUnidadesmedidaLabel_nombre}" for="nombre" />
+						<p:inputText id="nombre" value="#{unidadesmedidaController.selected.nombre}" title="#{bundle.CreateUnidadesmedidaTitle_nombre}" required="true" requiredMessage="#{bundle.CreateUnidadesmedidaRequiredMessage_nombre}"/>
+						<p:outputLabel value="#{bundle.CreateUnidadesmedidaLabel_idTipoUnd}" for="idTipoUnd" />
+						<p:selectOneMenu id="idTipoUnd" value="#{unidadesmedidaController.selected.idTipoUnd}" required="true" requiredMessage="#{bundle.EditUnidadesmedidaRequiredMessage_idTipoUnd}">
+							<f:selectItems value="#{tipounidadController.itemsAvailableSelectOne}"
+														 var="idTipoUndItem"
+														 itemValue="#{idTipoUndItem}"/>
+						</p:selectOneMenu>
+					</p:panelGrid>
+					<p:commandButton actionListener="#{unidadesmedidaController.create}" value="#{bundle.Save}" update="display,:UnidadesmedidaListForm:datalist,:growl" oncomplete="handleSubmit(args,'UnidadesmedidaCreateDialog');"/>
+					<p:commandButton value="#{bundle.Cancel}" onclick="UnidadesmedidaCreateDialog.hide()"/>
+				</h:panelGroup>
+			</h:form>
+		</p:dialog>
+
+	</ui:composition>
+</html>

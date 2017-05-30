@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+	<ui:composition>
+
+		<p:dialog id="FacturasrecibidasCreateDlg" widgetVar="FacturasrecibidasCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateFacturasrecibidasTitle}" onShow="actualizarDlgCr('FacturasrecibidasCreateForm','idProveedorPerNat','idProveedorPerJur')">
+			<h:outputScript library="js" name="MecadisScripts.js"/>
+			<h:form id="FacturasrecibidasCreateForm">
+				<h:panelGroup id="display">
+					<p:panelGrid columns="2" rendered="#{facturasrecibidasController.selected != null}">
+						<p:outputLabel value="#{bundle.CreateFacturasrecibidasLabel_idProyecto}" for="idProyecto" />
+						<p:selectOneMenu id="idProyecto" value="#{facturasrecibidasController.selected.idProyecto}" required="true" requiredMessage="#{bundle.EditFacturasrecibidasRequiredMessage_idProyecto}">
+							<f:selectItems value="#{proyectosController.itemsAvailableSelectOne}"
+														 var="idProyectoItem"
+														 itemValue="#{idProyectoItem}"/>
+						</p:selectOneMenu>
+						<p:outputLabel value="#{bundle.CreateFacturasrecibidasLabel_numFac}" for="numFac" />
+						<p:inputText id="numFac" value="#{facturasrecibidasController.selected.numFac}" title="#{bundle.CreateFacturasrecibidasTitle_numFac}" />
+						<p:outputLabel value="#{bundle.CreateFacturasrecibidasLabel_fechaExp}" for="fechaExp" />
+						<p:calendar id="fechaExp" pattern="MM/dd/yyyy" value="#{facturasrecibidasController.selected.fechaExp}" title="#{bundle.EditFacturasrecibidasTitle_fechaExp}"  showOn="button"/>
+
+						<p:outputLabel value="#{bundle.proveedorEsPersonaNatural}" for="chboxEsPerNat" />
+						<h:selectBooleanCheckbox id="chboxEsPerNat" onclick="actualizarDlgCr('FacturasrecibidasCreateForm','idProveedorPerNat','idProveedorPerJur')" value="#{facturasrecibidasController.perNat}"/>
+
+						<p:outputLabel value="#{bundle.CreateFacturasrecibidasLabel_idProveedorPerJur}" for="idProveedorPerJur" />
+						<p:selectOneMenu id="idProveedorPerJur" value="#{facturasrecibidasController.selected.idProveedorPerJur}" required="true" requiredMessage="#{bundle.EditFacturasrecibidasRequiredMessage_idProveedorPerJur}">
+							<f:selectItems value="#{personajuridicaController.itemsAvailableSelectOne}"
+														 var="idProveedorPerJurItem"
+														 itemValue="#{idProveedorPerJurItem}"/>
+						</p:selectOneMenu>
+						<p:outputLabel value="#{bundle.CreateFacturasrecibidasLabel_idProveedorPerNat}" for="idProveedorPerNat" />
+						<p:selectOneMenu id="idProveedorPerNat" value="#{facturasrecibidasController.selected.idProveedorPerNat}" required="true" requiredMessage="#{bundle.EditFacturasrecibidasRequiredMessage_idProveedorPerNat}">
+							<f:selectItems value="#{personanaturalController.itemsAvailableSelectOne}"
+														 var="idProveedorPerNatItem"
+														 itemValue="#{idProveedorPerNatItem}"/>
+						</p:selectOneMenu>
+						<p:outputLabel value="#{bundle.CreateFacturasrecibidasLabel_porcDescuento}" for="porcDescuento" />
+						<p:inputText id="porcDescuento" value="#{facturasrecibidasController.selected.porcDescuento}" title="#{bundle.CreateFacturasrecibidasTitle_porcDescuento}"/>
+					</p:panelGrid>
+					<p:commandButton actionListener="#{facturasrecibidasController.create}" value="#{bundle.Save}" update="display,:FacturasrecibidasListForm:datalist,:growl" oncomplete="handleSubmit(args,'FacturasrecibidasCreateDialog');"/>
+					<p:commandButton value="#{bundle.Cancel}" onclick="FacturasrecibidasCreateDialog.hide()"/>
+				</h:panelGroup>
+			</h:form>
+		</p:dialog>
+
+	</ui:composition>
+</html>

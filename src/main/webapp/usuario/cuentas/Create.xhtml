@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+	<ui:composition>
+
+		<p:dialog id="CuentasCreateDlg" widgetVar="CuentasCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateCuentasTitle}" onShow="actualizarDlgCr('CuentasCreateForm','idTitularPerNat','idTitularPerJur')">
+			<h:outputScript library="js" name="MecadisScripts.js"/>
+			<h:form id="CuentasCreateForm">
+				<h:panelGroup id="display">
+					<p:panelGrid columns="2" rendered="#{cuentasController.selected != null}">
+						<p:outputLabel value="#{bundle.CreateCuentasLabel_noCuenta}" for="noCuenta" />
+						<p:inputText id="noCuenta" value="#{cuentasController.selected.noCuenta}" title="#{bundle.CreateCuentasTitle_noCuenta}" required="true" requiredMessage="#{bundle.CreateCuentasRequiredMessage_noCuenta}"/>
+						<p:outputLabel value="#{bundle.CreateCuentasLabel_descripcion}" for="descripcion" />
+						<p:inputText id="descripcion" value="#{cuentasController.selected.descripcion}" title="#{bundle.CreateCuentasTitle_descripcion}" />
+						<p:outputLabel value="#{bundle.CreateCuentasLabel_idBanco}" for="idBanco" />
+						<p:selectOneMenu id="idBanco" value="#{cuentasController.selected.idBanco}" required="true" requiredMessage="#{bundle.EditCuentasRequiredMessage_idBanco}">
+							<f:selectItems value="#{bancosController.itemsAvailableSelectOne}"
+														 var="idBancoItem"
+														 itemValue="#{idBancoItem}"/>
+						</p:selectOneMenu>
+
+						<p:outputLabel value="#{bundle.clienteEsPersonaNatural}" for="chboxEsPerNat" />
+						<h:selectBooleanCheckbox id="chboxEsPerNat" onclick="actualizarDlgCr('CuentasCreateForm','idTitularPerNat','idTitularPerJur')" value="#{cuentasController.perNat}"/>
+
+						<p:outputLabel value="#{bundle.CreateCuentasLabel_idTitularPerJur}" for="idTitularPerJur" />
+						<p:selectOneMenu id="idTitularPerJur" value="#{cuentasController.selected.idTitularPerJur}" required="true" requiredMessage="#{bundle.EditCuentasRequiredMessage_idTitularPerJur}">
+							<f:selectItems value="#{personajuridicaController.itemsAvailableSelectOne}"
+														 var="idTitularPerJurItem"
+														 itemValue="#{idTitularPerJurItem}"/>
+						</p:selectOneMenu>
+						<p:outputLabel value="#{bundle.CreateCuentasLabel_idTitularPerNat}" for="idTitularPerNat" />
+						<p:selectOneMenu id="idTitularPerNat" value="#{cuentasController.selected.idTitularPerNat}" required="true" requiredMessage="#{bundle.EditCuentasRequiredMessage_idTitularPerNat}">
+							<f:selectItems value="#{personanaturalController.itemsAvailableSelectOne}"
+														 var="idTitularPerNatItem"
+														 itemValue="#{idTitularPerNatItem}"/>
+						</p:selectOneMenu>
+						<p:outputLabel value="#{bundle.CreateCuentasLabel_idTipo}" for="idTipo" />
+						<p:selectOneMenu id="idTipo" value="#{cuentasController.selected.idTipo}" required="true" requiredMessage="#{bundle.EditCuentasRequiredMessage_idTipo}">
+							<f:selectItems value="#{tipocuentaController.itemsAvailableSelectOne}"
+														 var="idTipoItem"
+														 itemValue="#{idTipoItem}"/>
+						</p:selectOneMenu>
+					</p:panelGrid>
+					<p:commandButton actionListener="#{cuentasController.create}" value="#{bundle.Save}" update="display,:CuentasListForm:datalist,:growl" oncomplete="handleSubmit(args,'CuentasCreateDialog');"/>
+					<p:commandButton value="#{bundle.Cancel}" onclick="CuentasCreateDialog.hide()"/>
+				</h:panelGroup>
+			</h:form>
+		</p:dialog>
+
+	</ui:composition>
+</html>

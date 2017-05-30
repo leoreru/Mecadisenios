@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+	<ui:composition>
+
+		<p:dialog id="MaterialesEditDlg" widgetVar="MaterialesEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditMaterialesTitle}">
+			<h:form id="MaterialesEditForm">
+				<h:panelGroup id="display">
+					<p:panelGrid columns="2" rendered="#{materialesController.selected != null}">
+						<p:outputLabel value="#{bundle.EditMaterialesLabel_idMaterialTipo}" for="idMaterialTipo" />
+						<p:selectOneMenu id="idMaterialTipo" value="#{materialesController.selected.idMaterialTipo}" required="true" requiredMessage="#{bundle.EditMaterialesRequiredMessage_idMaterialTipo}">
+							<f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+							<f:selectItems value="#{materialestipoController.itemsAvailableSelectOne}"
+														 var="idMaterialTipoItem"
+														 itemValue="#{idMaterialTipoItem}"/>
+						</p:selectOneMenu>
+						<p:outputLabel value="#{bundle.EditMaterialesLabel_idMarcaMaterial}" for="idMarcaMaterial" />
+						<p:selectOneMenu id="idMarcaMaterial" value="#{materialesController.selected.idMarcaMaterial}" >
+							<f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+							<f:selectItems value="#{marcamaterialController.itemsAvailableSelectOne}"
+														 var="idMarcaMaterialItem"
+														 itemValue="#{idMarcaMaterialItem}"/>
+						</p:selectOneMenu>
+						<p:outputLabel value="#{bundle.EditMaterialesLabel_medida1}" for="medida1" />
+						<p:inputText id="medida1" value="#{materialesController.selected.medida1}" title="#{bundle.EditMaterialesTitle_medida1}" required="true" requiredMessage="#{bundle.EditMaterialesRequiredMessage_medida1}"/>
+						<p:outputLabel value="#{bundle.EditMaterialesLabel_idUnidadMed1}" for="idUnidadMed1" />
+						<p:selectOneMenu id="idUnidadMed1" value="#{materialesController.selected.idUnidadMed1}" required="true" requiredMessage="#{bundle.EditMaterialesRequiredMessage_idUnidadMed1}">
+							<f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+							<f:selectItems value="#{unidadesmedidaController.itemsAvailableSelectOne}"
+														 var="idUnidadMed1Item"
+														 itemValue="#{idUnidadMed1Item}"/>
+						</p:selectOneMenu>
+						<p:outputLabel value="#{bundle.EditMaterialesLabel_medida2}" for="medida2" />
+						<p:inputText id="medida2" value="#{materialesController.selected.medida2}" title="#{bundle.EditMaterialesTitle_medida2}" />
+						<p:outputLabel value="#{bundle.EditMaterialesLabel_idUnidadMed2}" for="idUnidadMed2" />
+						<p:selectOneMenu id="idUnidadMed2" value="#{materialesController.selected.idUnidadMed2}" >
+							<f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+							<f:selectItems value="#{unidadesmedidaController.itemsAvailableSelectOne}"
+														 var="idUnidadMed2Item"
+														 itemValue="#{idUnidadMed2Item}"/>
+						</p:selectOneMenu>
+						<p:outputLabel value="#{bundle.EditMaterialesLabel_medida3}" for="medida3" />
+						<p:inputText id="medida3" value="#{materialesController.selected.medida3}" title="#{bundle.EditMaterialesTitle_medida3}" />
+						<p:outputLabel value="#{bundle.EditMaterialesLabel_idUnidadMed3}" for="idUnidadMed3" />
+						<p:selectOneMenu id="idUnidadMed3" value="#{materialesController.selected.idUnidadMed3}" >
+							<f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+							<f:selectItems value="#{unidadesmedidaController.itemsAvailableSelectOne}"
+														 var="idUnidadMed3Item"
+														 itemValue="#{idUnidadMed3Item}"/>
+						</p:selectOneMenu>
+						<p:outputLabel value="#{bundle.EditMaterialesLabel_valor}" for="valor" />
+						<p:inputText id="valor" value="#{materialesController.selected.valor}" title="#{bundle.EditMaterialesTitle_valor}" />
+					</p:panelGrid>
+					<p:commandButton actionListener="#{materialesController.update}" value="#{bundle.Save}" update="display,:MaterialesListForm:datalist,:growl" oncomplete="handleSubmit(args, 'MaterialesEditDialog');"/>
+					<p:commandButton value="#{bundle.Cancel}" onclick="MaterialesEditDialog.hide()"/>
+				</h:panelGroup>
+			</h:form>
+		</p:dialog>
+
+	</ui:composition>
+</html>

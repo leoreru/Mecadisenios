@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+	<h:head>
+		<title><h:outputText value="#{bundle.AppName}"></h:outputText></title>
+		<h:outputStylesheet name="css/jsfcrud.css"/>
+	</h:head>
+	<h:body>
+
+		<h1><h:outputText value="#{bundle.AppName}"></h:outputText></h1>
+
+		<br />
+		<h:link outcome="proyectos/List" value="#{bundle.admProyectos}"/>
+		<br />
+		<h:link outcome="admTablasVarias" value="#{bundle.admTablasVarias}"/>
+		<br />
+		<h:link outcome="admTablasOtras" value="#{bundle.admTablasOtras}"/>
+		<br />
+		<h:link outcome="/admin/users/List" value="#{bundle.admTablasAdmin}"/>
+		<br />
+		<form action="${pageContext.request.contextPath}/meca-1.0-SNAPSHOT/logout" method="post">
+			<input type="submit" value="Salir" />
+		</form>
+	</h:body>
+</html>

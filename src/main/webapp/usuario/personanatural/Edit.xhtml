@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+	<ui:composition>
+
+		<p:dialog id="PersonanaturalEditDlg" widgetVar="PersonanaturalEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditPersonanaturalTitle}">
+			<h:form id="PersonanaturalEditForm">
+				<h:panelGroup id="display">
+					<p:panelGrid columns="2" rendered="#{personanaturalController.selected != null}">
+						<p:outputLabel value="#{bundle.EditPersonanaturalLabel_numDoc}" for="numDoc" />
+						<p:inputText id="numDoc" value="#{personanaturalController.selected.numDoc}" title="#{bundle.EditPersonanaturalTitle_numDoc}" required="true" requiredMessage="#{bundle.EditPersonanaturalRequiredMessage_numDoc}"/>
+						<p:outputLabel value="#{bundle.EditPersonanaturalLabel_nombres}" for="nombres" />
+						<p:inputText id="nombres" value="#{personanaturalController.selected.nombres}" title="#{bundle.EditPersonanaturalTitle_nombres}" required="true" requiredMessage="#{bundle.EditPersonanaturalRequiredMessage_nombres}"/>
+						<p:outputLabel value="#{bundle.EditPersonanaturalLabel_apellido1}" for="apellido1" />
+						<p:inputText id="apellido1" value="#{personanaturalController.selected.apellido1}" title="#{bundle.EditPersonanaturalTitle_apellido1}" required="true" requiredMessage="#{bundle.EditPersonanaturalRequiredMessage_apellido1}"/>
+						<p:outputLabel value="#{bundle.EditPersonanaturalLabel_apellido2}" for="apellido2" />
+						<p:inputText id="apellido2" value="#{personanaturalController.selected.apellido2}" title="#{bundle.EditPersonanaturalTitle_apellido2}" />
+						<p:outputLabel value="#{bundle.EditPersonanaturalLabel_cargo}" for="cargo" />
+						<p:inputText id="cargo" value="#{personanaturalController.selected.cargo}" title="#{bundle.EditPersonanaturalTitle_cargo}" />
+						<p:outputLabel value="#{bundle.EditPersonanaturalLabel_email}" for="email" />
+						<p:inputText id="email" value="#{personanaturalController.selected.email}" title="#{bundle.EditPersonanaturalTitle_email}" />
+						<p:outputLabel value="#{bundle.EditPersonanaturalLabel_telefono}" for="telefono" />
+						<p:inputText id="telefono" value="#{personanaturalController.selected.telefono}" title="#{bundle.EditPersonanaturalTitle_telefono}" />
+						<p:outputLabel value="#{bundle.EditPersonanaturalLabel_direccion}" for="direccion" />
+						<p:inputText id="direccion" value="#{personanaturalController.selected.direccion}" title="#{bundle.EditPersonanaturalTitle_direccion}" />
+
+						<p:outputLabel value="#{bundle.departamento}" for="departamento" />
+						<p:selectOneMenu id="departamento" value="#{municipiosdaneController.departamentosdaneDDSel}">
+							<f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+							<f:selectItems value="#{departamentosdaneController.itemsAvailableSelectOne}"
+														 var="departamentosdaneItem"
+														 itemValue="#{departamentosdaneItem}"/>
+							<p:ajax event="change" update="municipiosdane" immediate="true"/>
+						</p:selectOneMenu>						
+
+						<p:outputLabel value="#{bundle.EditPersonanaturalLabel_municipiosdane}" for="municipiosdane" />
+						<p:selectOneMenu id="municipiosdane" value="#{personanaturalController.selected.municipiosdane}" >
+							<f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+							<f:selectItems value="#{municipiosdaneController.itemsAvailableSelectOneByDepartamento}"
+														 var="municipiosdaneItem"
+														 itemValue="#{municipiosdaneItem}"/>
+						</p:selectOneMenu>
+					</p:panelGrid>
+					<p:commandButton actionListener="#{personanaturalController.update}" value="#{bundle.Save}" update="display,:PersonanaturalListForm:datalist,:growl" oncomplete="handleSubmit(args, 'PersonanaturalEditDialog');"/>
+					<p:commandButton value="#{bundle.Cancel}" onclick="PersonanaturalEditDialog.hide()"/>
+				</h:panelGroup>
+			</h:form>
+		</p:dialog>
+
+	</ui:composition>
+</html>

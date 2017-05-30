@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+	<ui:composition>
+
+		<p:dialog id="GirosEditDlg" widgetVar="GirosEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditGirosTitle}">
+			<h:form id="GirosEditForm">
+				<h:panelGroup id="display">
+					<p:panelGrid columns="2" rendered="#{girosController.selected != null}">
+						<p:outputLabel value="#{bundle.EditGirosLabel_valor}" for="valor" />
+						<p:inputText id="valor" value="#{girosController.selected.valor}" title="#{bundle.EditGirosTitle_valor}" required="true" requiredMessage="#{bundle.EditGirosRequiredMessage_valor}"/>
+						<p:outputLabel value="#{bundle.EditGirosLabel_retenciones}" for="retenciones" />
+						<p:inputText id="retenciones" value="#{girosController.selected.retenciones}" title="#{bundle.EditGirosTitle_retenciones}" required="true" requiredMessage="#{bundle.EditGirosRequiredMessage_retenciones}"/>
+						<p:outputLabel value="#{bundle.EditGirosLabel_descripcion}" for="descripcion" />
+						<p:inputText id="descripcion" value="#{girosController.selected.descripcion}" title="#{bundle.EditGirosTitle_descripcion}" />
+						<p:outputLabel value="#{bundle.EditGirosLabel_idCuentaOrigen}" for="idCuentaOrigen" />
+						<p:selectOneMenu id="idCuentaOrigen" value="#{girosController.selected.idCuentaOrigen}" required="true" requiredMessage="#{bundle.EditGirosRequiredMessage_idCuentaOrigen}">
+							<f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+							<f:selectItems value="#{cuentasController.itemsAvailableSelectOne}"
+														 var="idCuentaOrigenItem"
+														 itemValue="#{idCuentaOrigenItem}"/>
+						</p:selectOneMenu>
+						<p:outputLabel value="#{bundle.EditGirosLabel_idCuentaDestino}" for="idCuentaDestino" />
+						<p:selectOneMenu
+							id="idCuentaDestino"
+							value="#{girosController.selected.idCuentaDestino}"
+							required="true"
+							requiredMessage="#{bundle.EditGirosRequiredMessage_idCuentaDestino}"
+							validator="#{girosController.validarCuentas}">
+							<f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+							<f:selectItems value="#{cuentasController.itemsAvailableSelectOne}"
+														 var="idCuentaDestinoItem"
+														 itemValue="#{idCuentaDestinoItem}"/>
+						</p:selectOneMenu>
+						<p:outputLabel value="#{bundle.EditGirosLabel_idProyecto}" for="idProyecto" />
+						<p:selectOneMenu id="idProyecto" value="#{girosController.selected.idProyecto}" >
+							<f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+							<f:selectItems value="#{proyectosController.itemsAvailableSelectOne}"
+														 var="idProyectoItem"
+														 itemValue="#{idProyectoItem}"/>
+						</p:selectOneMenu>
+					</p:panelGrid>
+					<p:commandButton actionListener="#{girosController.update}" value="#{bundle.Save}" update="display,:GirosListForm:datalist,:growl" oncomplete="handleSubmit(args, 'GirosEditDialog');"/>
+					<p:commandButton value="#{bundle.Cancel}" onclick="GirosEditDialog.hide()"/>
+				</h:panelGroup>
+			</h:form>
+		</p:dialog>
+
+	</ui:composition>
+</html>

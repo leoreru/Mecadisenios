@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+	<ui:composition>
+
+		<p:dialog id="FacturasrecibidasViewDlg" widgetVar="FacturasrecibidasViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewFacturasrecibidasTitle}">
+			<h:form id="FacturasrecibidasViewForm">
+				<h:panelGroup id="display">
+					<p:panelGrid columns="2" rendered="#{facturasrecibidasController.selected != null}">
+						<h:outputText value="#{bundle.ViewFacturasrecibidasLabel_id}"/>
+						<h:outputText value="#{facturasrecibidasController.selected.id}" title="#{bundle.ViewFacturasrecibidasTitle_id}"/>
+						<h:outputText value="#{bundle.ViewFacturasrecibidasLabel_numFac}"/>
+						<h:outputText value="#{facturasrecibidasController.selected.numFac}" title="#{bundle.ViewFacturasrecibidasTitle_numFac}"/>
+						<h:outputText value="#{bundle.ViewFacturasrecibidasLabel_fechaExp}"/>
+						<h:outputText value="#{facturasrecibidasController.selected.fechaExp}" title="#{bundle.ViewFacturasrecibidasTitle_fechaExp}">
+							<f:convertDateTime pattern="MM/dd/yyyy" />
+						</h:outputText>
+						<h:outputText value="#{bundle.ViewFacturasrecibidasLabel_idProveedorPerJur}"/>
+						<h:outputText value="#{facturasrecibidasController.selected.idProveedorPerJur}" title="#{bundle.ViewFacturasrecibidasTitle_idProveedorPerJur}"/>
+						<h:outputText value="#{bundle.ViewFacturasrecibidasLabel_idProveedorPerNat}"/>
+						<h:outputText value="#{facturasrecibidasController.selected.idProveedorPerNat}" title="#{bundle.ViewFacturasrecibidasTitle_idProveedorPerNat}"/>
+						<h:outputText value="#{bundle.ViewFacturasrecibidasLabel_idProyecto}"/>
+						<h:outputText value="#{facturasrecibidasController.selected.idProyecto}" title="#{bundle.ViewFacturasrecibidasTitle_idProyecto}"/>
+						<h:outputText value="#{bundle.ViewFacturasrecibidasLabel_porcDescuento}"/>
+						<h:outputText value="#{facturasrecibidasController.selected.porcDescuento}" title="#{bundle.ViewFacturasrecibidasTitle_porcDescuento}"/>
+					</p:panelGrid>
+					<p:commandButton value="#{bundle.Close}" onclick="FacturasrecibidasViewDialog.hide()"/>
+				</h:panelGroup>
+			</h:form>
+		</p:dialog>
+
+	</ui:composition>
+</html>

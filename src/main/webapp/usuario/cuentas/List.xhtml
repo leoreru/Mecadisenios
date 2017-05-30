@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+	<ui:composition template="/templateTabVarias.xhtml">
+
+
+		<ui:define name="title">
+			<h:outputText value="#{bundle.ListCuentasTitle}"></h:outputText>
+		</ui:define>
+
+		<ui:define name="body">
+			<h:form id="CuentasListForm">
+				<p:panel header="#{bundle.ListCuentasTitle}">
+					<p:dataTable id="datalist" value="#{cuentasController.items}" var="item"
+											 selectionMode="single" selection="#{cuentasController.selected}"
+											 paginator="true"
+											 rowKey="#{item.id}"
+											 rows="10"
+											 rowsPerPageTemplate="10,20,30,40,50"
+											 resizableColumns="true"
+											 >
+
+						<p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+						<p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="#{bundle.ListCuentasTitle_id}"/>
+							</f:facet>
+							<h:outputText value="#{item.id}"/>
+						</p:column>
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="#{bundle.ListCuentasTitle_noCuenta}"/>
+							</f:facet>
+							<h:outputText value="#{item.noCuenta}"/>
+						</p:column>
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="#{bundle.ListCuentasTitle_idTipo}"/>
+							</f:facet>
+							<h:outputText value="#{item.idTipo}"/>
+						</p:column>
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="#{bundle.ListCuentasTitle_descripcion}"/>
+							</f:facet>
+							<h:outputText value="#{item.descripcion}"/>
+						</p:column>
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="#{bundle.ListCuentasTitle_idBanco}"/>
+							</f:facet>
+							<h:outputText value="#{item.idBanco}"/>
+						</p:column>
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="#{bundle.ListCuentasTitle_idTitularPerJur}"/>
+							</f:facet>
+							<h:outputText value="#{item.idTitularPerJur}"/>
+						</p:column>
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="#{bundle.ListCuentasTitle_idTitularPerNat}"/>
+							</f:facet>
+							<h:outputText value="#{item.idTitularPerNat}"/>
+						</p:column>
+						<f:facet name="footer">
+							<p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{cuentasController.prepareCreate}" update=":CuentasCreateForm" oncomplete="PF('CuentasCreateDialog').show()"/>
+							<p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":CuentasViewForm" oncomplete="PF('CuentasViewDialog').show()" disabled="#{empty cuentasController.selected}"/>
+							<p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":CuentasEditForm" oncomplete="PF('CuentasEditDialog').show()" disabled="#{empty cuentasController.selected}"/>
+							<p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{cuentasController.destroy}" update=":growl,datalist" disabled="#{empty cuentasController.selected}"/>
+						</f:facet>
+					</p:dataTable>
+				</p:panel>
+			</h:form>
+
+			<ui:include src="Create.xhtml"/>
+			<ui:include src="Edit.xhtml"/>
+			<ui:include src="View.xhtml"/>
+		</ui:define>
+	</ui:composition>
+
+</html>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+	<ui:composition>
+
+		<p:dialog id="TipocuentaEditDlg" widgetVar="TipocuentaEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditTipocuentaTitle}">
+			<h:form id="TipocuentaEditForm">
+				<h:panelGroup id="display">
+					<p:panelGrid columns="2" rendered="#{tipocuentaController.selected != null}">
+						<p:outputLabel value="#{bundle.EditTipocuentaLabel_id}" for="id" />
+						<p:inputText id="id" value="#{tipocuentaController.selected.id}" title="#{bundle.EditTipocuentaTitle_id}" required="true" requiredMessage="#{bundle.EditTipocuentaRequiredMessage_id}" disabled="true"/>
+						<p:outputLabel value="#{bundle.EditTipocuentaLabel_nombre}" for="nombre" />
+						<p:inputText id="nombre" value="#{tipocuentaController.selected.nombre}" title="#{bundle.EditTipocuentaTitle_nombre}" required="true" requiredMessage="#{bundle.EditTipocuentaRequiredMessage_nombre}"/>
+					</p:panelGrid>
+					<p:commandButton actionListener="#{tipocuentaController.update}" value="#{bundle.Save}" update="display,:TipocuentaListForm:datalist,:growl" oncomplete="handleSubmit(args, 'TipocuentaEditDialog');"/>
+					<p:commandButton value="#{bundle.Cancel}" onclick="TipocuentaEditDialog.hide()"/>
+				</h:panelGroup>
+			</h:form>
+		</p:dialog>
+
+	</ui:composition>
+</html>

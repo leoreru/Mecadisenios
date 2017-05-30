@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+	<ui:composition>
+
+		<p:dialog id="ContactosclienteCreateDlg" widgetVar="ContactosclienteCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateContactosclienteTitle}" onShow="actualizarDlgCr('ContactosclienteCreateForm','idClientePerNat','idClientePerJur')">
+			<h:outputScript library="js" name="MecadisScripts.js"/>
+			<h:form id="ContactosclienteCreateForm">
+				<h:panelGroup id="display">
+					<p:panelGrid columns="2" rendered="#{contactosclienteController.selected != null}">
+						
+						<p:outputLabel value="#{bundle.clienteEsPersonaNatural}" for="chboxEsPerNat" />
+						<h:selectBooleanCheckbox id="chboxEsPerNat" onclick="actualizarDlgCr('ContactosclienteCreateForm','idClientePerNat','idClientePerJur')" value="#{contactosclienteController.perNat}"/>
+
+						<p:outputLabel value="#{bundle.CreateContactosclienteLabel_idClientePerJur}" for="idClientePerJur" />
+						<p:selectOneMenu id="idClientePerJur" value="#{contactosclienteController.selected.idClientePerJur}"  required="true">
+							<f:selectItems value="#{personajuridicaController.itemsAvailableSelectOne}"
+														 var="idClientePerJurItem"
+														 itemValue="#{idClientePerJurItem}"/>
+						</p:selectOneMenu>
+						<p:outputLabel value="#{bundle.CreateContactosclienteLabel_idClientePerNat}" for="idClientePerNat" />
+						<p:selectOneMenu id="idClientePerNat" value="#{contactosclienteController.selected.idClientePerNat}"  required="true">
+							<f:selectItems value="#{personanaturalController.itemsAvailableSelectOne}"
+														 var="idClientePerNatItem"
+														 itemValue="#{idClientePerNatItem}"/>
+						</p:selectOneMenu>
+						<p:outputLabel value="#{bundle.CreateContactosclienteLabel_idContactoPerNat}" for="idContactoPerNat" />
+						<p:selectOneMenu id="idContactoPerNat" value="#{contactosclienteController.selected.idContactoPerNat}" required="true" requiredMessage="#{bundle.EditContactosclienteRequiredMessage_idContactoPerNat}">
+							<f:selectItems value="#{personanaturalController.itemsAvailableSelectOne}"
+														 var="idContactoPerNatItem"
+														 itemValue="#{idContactoPerNatItem}"/>
+						</p:selectOneMenu>
+					</p:panelGrid>
+					<p:commandButton actionListener="#{contactosclienteController.create}" value="#{bundle.Save}" update="display,:ContactosclienteListForm:datalist,:growl" oncomplete="handleSubmit(args,'ContactosclienteCreateDialog');"/>
+					<p:commandButton value="#{bundle.Cancel}" onclick="ContactosclienteCreateDialog.hide()"/>
+				</h:panelGroup>
+			</h:form>
+		</p:dialog>
+
+	</ui:composition>
+</html>

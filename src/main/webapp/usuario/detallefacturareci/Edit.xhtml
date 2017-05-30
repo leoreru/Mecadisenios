@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+	<ui:composition>
+
+		<p:dialog id="DetallefacturareciEditDlg" widgetVar="DetallefacturareciEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditDetallefacturareciTitle}">
+			<h:form id="DetallefacturareciEditForm">
+				<h:panelGroup id="display">
+					<p:panelGrid columns="2" rendered="#{detallefacturareciController.selected != null}">
+
+						<p:outputLabel value="#{bundle.CategoriaMaterial}" for="materialesCategoria" />
+						<p:selectOneMenu id="materialesCategoria" value="#{materialesController.materialescategoriaDDSel}">
+							<f:selectItems value="#{materialescategoriaController.itemsAvailableSelectOne}"
+														 var="materialescategoriaItem"
+														 itemValue="#{materialescategoriaItem}"/>
+							<p:ajax event="change" update="materiales" immediate="true"/>
+						</p:selectOneMenu>
+
+						<p:outputLabel value="#{bundle.EditDetallefacturareciLabel_materiales}" for="materiales" />
+						<p:selectOneMenu id="materiales" value="#{detallefacturareciController.selected.materiales}" required="true" requiredMessage="#{bundle.EditDetallefacturareciRequiredMessage_materiales}">
+							<f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+							<f:selectItems value="#{materialesController.itemsAvailableSelectOneByCategoria}"
+														 var="materialesItem"
+														 itemValue="#{materialesItem}"/>
+						</p:selectOneMenu>
+						<p:outputLabel value="#{bundle.EditDetallefacturareciLabel_cantidad}" for="cantidad" />
+						<p:inputText id="cantidad" value="#{detallefacturareciController.selected.cantidad}" title="#{bundle.EditDetallefacturareciTitle_cantidad}" required="true" requiredMessage="#{bundle.EditDetallefacturareciRequiredMessage_cantidad}"/>
+						<p:outputLabel value="#{bundle.EditDetallefacturareciLabel_valorSinIva}" for="valorSinIva" />
+						<p:inputText id="valorSinIva" value="#{detallefacturareciController.selected.valorSinIva}" title="#{bundle.EditDetallefacturareciTitle_valorSinIva}" required="true" requiredMessage="#{bundle.EditDetallefacturareciRequiredMessage_valorSinIva}"/>
+						<p:outputLabel value="#{bundle.EditDetallefacturareciLabel_porcIva}" for="porcIva" />
+						<p:inputText id="porcIva" value="#{detallefacturareciController.selected.porcIva}" title="#{bundle.EditDetallefacturareciTitle_porcIva}" required="true" requiredMessage="#{bundle.EditDetallefacturareciRequiredMessage_porcIva}"/>
+<!-- Cambiar una parte de la clave principal hace que se dupliquen registros, no se por que.
+						<p:outputLabel value="#{bundle.EditDetallefacturareciLabel_facturasrecibidas}" for="facturasrecibidas" />
+						<p:selectOneMenu id="facturasrecibidas" value="#{detallefacturareciController.selected.facturasrecibidas}" required="true" requiredMessage="#{bundle.EditDetallefacturareciRequiredMessage_facturasrecibidas}">
+							<f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+							<f:selectItems value="#{facturasrecibidasController.itemsAvailableSelectOne}"
+														 var="facturasrecibidasItem"
+														 itemValue="#{facturasrecibidasItem}"/>
+						</p:selectOneMenu>
+-->
+					</p:panelGrid>
+					<p:commandButton actionListener="#{detallefacturareciController.update}" value="#{bundle.Save}" update="display,:DetallefacturareciListForm:datalist,:growl" oncomplete="handleSubmit(args, 'DetallefacturareciEditDialog');"/>
+					<p:commandButton value="#{bundle.Cancel}" onclick="DetallefacturareciEditDialog.hide()"/>
+				</h:panelGroup>
+			</h:form>
+		</p:dialog>
+
+	</ui:composition>
+</html>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MaterialestipoCreateDlg" widgetVar="MaterialestipoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateMaterialestipoTitle}">
+            <h:form id="MaterialestipoCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{materialestipoController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateMaterialestipoLabel_nombre}" for="nombre" />
+                        <p:inputText id="nombre" value="#{materialestipoController.selected.nombre}" title="#{bundle.CreateMaterialestipoTitle_nombre}" required="true" requiredMessage="#{bundle.CreateMaterialestipoRequiredMessage_nombre}"/>
+                        <p:outputLabel value="#{bundle.CreateMaterialestipoLabel_idCategoria}" for="idCategoria" />
+                        <p:selectOneMenu id="idCategoria" value="#{materialestipoController.selected.idCategoria}" required="true" requiredMessage="#{bundle.EditMaterialestipoRequiredMessage_idCategoria}">
+                            <f:selectItems value="#{materialescategoriaController.itemsAvailableSelectOne}"
+                                           var="idCategoriaItem"
+                                           itemValue="#{idCategoriaItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{materialestipoController.create}" value="#{bundle.Save}" update="display,:MaterialestipoListForm:datalist,:growl" oncomplete="handleSubmit(args,'MaterialestipoCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="MaterialestipoCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

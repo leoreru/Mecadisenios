@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+	<ui:composition>
+
+		<p:dialog id="ProyectosViewDlg" widgetVar="ProyectosViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewProyectosTitle}">
+			<h:form id="ProyectosViewForm">
+				<h:panelGroup id="display">
+					<p:panelGrid columns="2" rendered="#{proyectosController.selected != null}">
+						<h:outputText value="#{bundle.ViewProyectosLabel_id}"/>
+						<h:outputText value="#{proyectosController.selected.id}" title="#{bundle.ViewProyectosTitle_id}"/>
+						<h:outputText value="#{bundle.ViewProyectosLabel_nombre}"/>
+						<h:outputText value="#{proyectosController.selected.nombre}" title="#{bundle.ViewProyectosTitle_nombre}"/>
+						<h:outputText value="#{bundle.ViewProyectosLabel_descripcion}"/>
+						<h:outputText value="#{proyectosController.selected.descripcion}" title="#{bundle.ViewProyectosTitle_descripcion}"/>
+						<h:outputText value="#{bundle.ViewProyectosLabel_porcAdmin}"/>
+						<h:outputText value="#{proyectosController.selected.porcAdmin}" title="#{bundle.ViewProyectosTitle_porcAdmin}"/>
+						<h:outputText value="#{bundle.ViewProyectosLabel_porcComision}"/>
+						<h:outputText value="#{proyectosController.selected.porcComision}" title="#{bundle.ViewProyectosTitle_porcComision}"/>
+						<h:outputText value="#{bundle.ViewProyectosLabel_porcUtilidad}"/>
+						<h:outputText value="#{proyectosController.selected.porcUtilidad}" title="#{bundle.ViewProyectosTitle_porcUtilidad}"/>
+						<h:outputText value="#{bundle.ViewProyectosLabel_idClientePerJur}"/>
+						<h:outputText value="#{proyectosController.selected.idClientePerJur}" title="#{bundle.ViewProyectosTitle_idClientePerJur}"/>
+						<h:outputText value="#{bundle.ViewProyectosLabel_idClientePerNat}"/>
+						<h:outputText value="#{proyectosController.selected.idClientePerNat}" title="#{bundle.ViewProyectosTitle_idClientePerNat}"/>
+					</p:panelGrid>
+					<p:commandButton value="#{bundle.Close}" onclick="ProyectosViewDialog.hide()"/>
+				</h:panelGroup>
+			</h:form>
+		</p:dialog>
+
+	</ui:composition>
+</html>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+	<ui:composition>
+
+		<p:dialog id="PersonajuridicaViewDlg" widgetVar="PersonajuridicaViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewPersonajuridicaTitle}">
+			<h:form id="PersonajuridicaViewForm">
+				<h:panelGroup id="display">
+					<p:panelGrid columns="2" rendered="#{personajuridicaController.selected != null}">
+						<h:outputText value="#{bundle.ViewPersonajuridicaLabel_id}"/>
+						<h:outputText value="#{personajuridicaController.selected.id}" title="#{bundle.ViewPersonajuridicaTitle_id}"/>
+						<h:outputText value="#{bundle.ViewPersonajuridicaLabel_nombre}"/>
+						<h:outputText value="#{personajuridicaController.selected.nombre}" title="#{bundle.ViewPersonajuridicaTitle_nombre}"/>
+						<h:outputText value="#{bundle.ViewPersonajuridicaLabel_nit}"/>
+						<h:outputText value="#{personajuridicaController.selected.nit}" title="#{bundle.ViewPersonajuridicaTitle_nit}"/>
+						<h:outputText value="#{bundle.ViewPersonajuridicaLabel_direccion}"/>
+						<h:outputText value="#{personajuridicaController.selected.direccion}" title="#{bundle.ViewPersonajuridicaTitle_direccion}"/>
+						<h:outputText value="#{bundle.ViewPersonajuridicaLabel_telefono}"/>
+						<h:outputText value="#{personajuridicaController.selected.telefono}" title="#{bundle.ViewPersonajuridicaTitle_telefono}"/>
+						<h:outputText value="#{bundle.ViewPersonajuridicaLabel_municipiosdane}"/>
+						<h:outputText value="#{personajuridicaController.selected.municipiosdane}" title="#{bundle.ViewPersonajuridicaTitle_municipiosdane}"/>
+					</p:panelGrid>
+					<p:commandButton value="#{bundle.Close}" onclick="PersonajuridicaViewDialog.hide()"/>
+				</h:panelGroup>
+			</h:form>
+		</p:dialog>
+
+	</ui:composition>
+</html>

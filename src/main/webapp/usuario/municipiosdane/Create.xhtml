@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MunicipiosdaneCreateDlg" widgetVar="MunicipiosdaneCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateMunicipiosdaneTitle}">
+            <h:form id="MunicipiosdaneCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{municipiosdaneController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateMunicipiosdaneLabel_departamentosdane}" for="departamentosdane" />
+                        <p:selectOneMenu id="departamentosdane" value="#{municipiosdaneController.selected.departamentosdane}" required="true" requiredMessage="#{bundle.EditMunicipiosdaneRequiredMessage_departamentosdane}">
+                            <f:selectItems value="#{departamentosdaneController.itemsAvailableSelectOne}"
+                                           var="departamentosdaneItem"
+                                           itemValue="#{departamentosdaneItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateMunicipiosdaneLabel_municipiosdanePK_codMun}" for="municipiosdanePK_codMun" />
+                        <p:inputText id="municipiosdanePK_codMun" value="#{municipiosdaneController.selected.municipiosdanePK.codMun}" title="#{bundle.CreateMunicipiosdaneTitle_municipiosdanePK_codMun}" required="true" requiredMessage="#{bundle.CreateMunicipiosdaneRequiredMessage_municipiosdanePK_codMun}"/>
+                        <p:outputLabel value="#{bundle.CreateMunicipiosdaneLabel_nombre}" for="nombre" />
+                        <p:inputText id="nombre" value="#{municipiosdaneController.selected.nombre}" title="#{bundle.CreateMunicipiosdaneTitle_nombre}" required="true" requiredMessage="#{bundle.CreateMunicipiosdaneRequiredMessage_nombre}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{municipiosdaneController.create}" value="#{bundle.Save}" update="display,:MunicipiosdaneListForm:datalist,:growl" oncomplete="handleSubmit(args,'MunicipiosdaneCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="MunicipiosdaneCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

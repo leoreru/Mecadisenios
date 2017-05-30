@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+	<ui:composition>
+
+		<p:dialog id="DetallefacturareciCreateDlg" widgetVar="DetallefacturareciCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateDetallefacturareciTitle}">
+			<h:form id="DetallefacturareciCreateForm">
+				<h:panelGroup id="display">
+					<p:panelGrid columns="2" rendered="#{detallefacturareciController.selected != null}">
+<!-- La factura es la elejida en la lista.
+						<p:outputLabel value="#{bundle.CreateDetallefacturareciLabel_facturasrecibidas}" for="facturasrecibidas" />
+						<p:selectOneMenu id="facturasrecibidas" value="#{detallefacturareciController.selected.facturasrecibidas}" required="true" requiredMessage="#{bundle.EditDetallefacturareciRequiredMessage_facturasrecibidas}">
+							<f:selectItems value="#{facturasrecibidasController.itemsAvailableSelectOne}"
+														 var="facturasrecibidasItem"
+														 itemValue="#{facturasrecibidasItem}"/>
+						</p:selectOneMenu>
+-->
+
+						<p:outputLabel value="#{bundle.CategoriaMaterial}" for="materialesCategoria" />
+						<p:selectOneMenu id="materialesCategoria" value="#{materialesController.materialescategoriaDDSel}">
+							<f:selectItems value="#{materialescategoriaController.itemsAvailableSelectOne}"
+														 var="materialescategoriaItem"
+														 itemValue="#{materialescategoriaItem}"/>
+							<p:ajax event="change" update="materiales" immediate="true"/>
+						</p:selectOneMenu>
+
+						<p:outputLabel value="#{bundle.CreateDetallefacturareciLabel_materiales}" for="materiales" />
+						<p:selectOneMenu id="materiales" value="#{detallefacturareciController.selected.materiales}" required="true" requiredMessage="#{bundle.EditDetallefacturareciRequiredMessage_materiales}">
+							<f:selectItems value="#{materialesController.itemsAvailableSelectOneByCategoria}"
+														 var="materialesItem"
+														 itemValue="#{materialesItem}"/>
+						</p:selectOneMenu>
+						<p:outputLabel value="#{bundle.CreateDetallefacturareciLabel_cantidad}" for="cantidad" />
+						<p:inputText id="cantidad" value="#{detallefacturareciController.selected.cantidad}" title="#{bundle.CreateDetallefacturareciTitle_cantidad}" required="true" requiredMessage="#{bundle.CreateDetallefacturareciRequiredMessage_cantidad}"/>
+						<p:outputLabel value="#{bundle.CreateDetallefacturareciLabel_valorSinIva}" for="valorSinIva" />
+						<p:inputText id="valorSinIva" value="#{detallefacturareciController.selected.valorSinIva}" title="#{bundle.CreateDetallefacturareciTitle_valorSinIva}" required="true" requiredMessage="#{bundle.CreateDetallefacturareciRequiredMessage_valorSinIva}"/>
+						<p:outputLabel value="#{bundle.CreateDetallefacturareciLabel_porcIva}" for="porcIva" />
+						<p:inputText id="porcIva" value="#{detallefacturareciController.selected.porcIva}" title="#{bundle.CreateDetallefacturareciTitle_porcIva}" required="true" requiredMessage="#{bundle.CreateDetallefacturareciRequiredMessage_porcIva}"/>
+					</p:panelGrid>
+					<p:commandButton actionListener="#{detallefacturareciController.create}" value="#{bundle.Save}" update="display,:DetallefacturareciListForm:datalist,:growl" oncomplete="handleSubmit(args,'DetallefacturareciCreateDialog');"/>
+					<p:commandButton value="#{bundle.Cancel}" onclick="DetallefacturareciCreateDialog.hide()"/>
+				</h:panelGroup>
+			</h:form>
+		</p:dialog>
+
+	</ui:composition>
+</html>

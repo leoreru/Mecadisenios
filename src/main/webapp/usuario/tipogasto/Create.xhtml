@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+	<ui:composition>
+
+		<p:dialog id="TipogastoCreateDlg" widgetVar="TipogastoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateTipogastoTitle}">
+			<h:form id="TipogastoCreateForm">
+				<h:panelGroup id="display">
+					<p:panelGrid columns="2" rendered="#{tipogastoController.selected != null}">
+						<p:outputLabel value="#{bundle.CreateTipogastoLabel_nombre}" for="nombre" />
+						<p:inputText id="nombre" value="#{tipogastoController.selected.nombre}" title="#{bundle.CreateTipogastoTitle_nombre}" required="true" requiredMessage="#{bundle.CreateTipogastoRequiredMessage_nombre}"/>
+						<p:outputLabel value="#{bundle.CreateTipogastoLabel_descripcion}" for="descripcion" />
+						<p:inputText id="descripcion" value="#{tipogastoController.selected.descripcion}" title="#{bundle.CreateTipogastoTitle_descripcion}" />
+						<p:outputLabel value="#{bundle.CreateTipogastoLabel_valor}" for="valor" />
+						<p:inputText id="valor" value="#{tipogastoController.selected.valor}" title="#{bundle.CreateTipogastoTitle_valor}" />
+					</p:panelGrid>
+					<p:commandButton actionListener="#{tipogastoController.create}" value="#{bundle.Save}" update="display,:TipogastoListForm:datalist,:growl" oncomplete="handleSubmit(args,'TipogastoCreateDialog');"/>
+					<p:commandButton value="#{bundle.Cancel}" onclick="TipogastoCreateDialog.hide()"/>
+				</h:panelGroup>
+			</h:form>
+		</p:dialog>
+
+	</ui:composition>
+</html>

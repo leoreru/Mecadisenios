@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+	<ui:composition>
+
+		<p:dialog id="TipounidadEditDlg" widgetVar="TipounidadEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditTipounidadTitle}">
+			<h:form id="TipounidadEditForm">
+				<h:panelGroup id="display">
+					<p:panelGrid columns="2" rendered="#{tipounidadController.selected != null}">
+						<p:outputLabel value="#{bundle.EditTipounidadLabel_id}" for="id" />
+						<p:inputText id="id" value="#{tipounidadController.selected.id}" title="#{bundle.EditTipounidadTitle_id}" required="true" requiredMessage="#{bundle.EditTipounidadRequiredMessage_id}" disabled="true"/>
+						<p:outputLabel value="#{bundle.EditTipounidadLabel_nombre}" for="nombre" />
+						<p:inputText id="nombre" value="#{tipounidadController.selected.nombre}" title="#{bundle.EditTipounidadTitle_nombre}" required="true" requiredMessage="#{bundle.EditTipounidadRequiredMessage_nombre}"/>
+					</p:panelGrid>
+					<p:commandButton actionListener="#{tipounidadController.update}" value="#{bundle.Save}" update="display,:TipounidadListForm:datalist,:growl" oncomplete="handleSubmit(args, 'TipounidadEditDialog');"/>
+					<p:commandButton value="#{bundle.Cancel}" onclick="TipounidadEditDialog.hide()"/>
+				</h:panelGroup>
+			</h:form>
+		</p:dialog>
+
+	</ui:composition>
+</html>

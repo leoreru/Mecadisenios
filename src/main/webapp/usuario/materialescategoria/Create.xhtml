@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MaterialescategoriaCreateDlg" widgetVar="MaterialescategoriaCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateMaterialescategoriaTitle}">
+            <h:form id="MaterialescategoriaCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{materialescategoriaController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateMaterialescategoriaLabel_nombre}" for="nombre" />
+                        <p:inputText id="nombre" value="#{materialescategoriaController.selected.nombre}" title="#{bundle.CreateMaterialescategoriaTitle_nombre}" required="true" requiredMessage="#{bundle.CreateMaterialescategoriaRequiredMessage_nombre}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{materialescategoriaController.create}" value="#{bundle.Save}" update="display,:MaterialescategoriaListForm:datalist,:growl" oncomplete="handleSubmit(args,'MaterialescategoriaCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="MaterialescategoriaCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

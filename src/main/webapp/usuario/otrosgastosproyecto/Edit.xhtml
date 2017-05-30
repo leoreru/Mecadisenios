@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="OtrosgastosproyectoEditDlg" widgetVar="OtrosgastosproyectoEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditOtrosgastosproyectoTitle}">
+            <h:form id="OtrosgastosproyectoEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{otrosgastosproyectoController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditOtrosgastosproyectoLabel_proyectos}" for="proyectos" />
+                        <p:selectOneMenu id="proyectos" value="#{otrosgastosproyectoController.selected.proyectos}" required="true" requiredMessage="#{bundle.EditOtrosgastosproyectoRequiredMessage_proyectos}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{proyectosController.itemsAvailableSelectOne}"
+                                           var="proyectosItem"
+                                           itemValue="#{proyectosItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditOtrosgastosproyectoLabel_tipogasto}" for="tipogasto" />
+                        <p:selectOneMenu id="tipogasto" value="#{otrosgastosproyectoController.selected.tipogasto}" required="true" requiredMessage="#{bundle.EditOtrosgastosproyectoRequiredMessage_tipogasto}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tipogastoController.itemsAvailableSelectOne}"
+                                           var="tipogastoItem"
+                                           itemValue="#{tipogastoItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditOtrosgastosproyectoLabel_cantidad}" for="cantidad" />
+                        <p:inputText id="cantidad" value="#{otrosgastosproyectoController.selected.cantidad}" title="#{bundle.EditOtrosgastosproyectoTitle_cantidad}" required="true" requiredMessage="#{bundle.EditOtrosgastosproyectoRequiredMessage_cantidad}"/>
+                        <p:outputLabel value="#{bundle.EditOtrosgastosproyectoLabel_valUnitario}" for="valUnitario" />
+                        <p:inputText id="valUnitario" value="#{otrosgastosproyectoController.selected.valUnitario}" title="#{bundle.EditOtrosgastosproyectoTitle_valUnitario}" required="true" requiredMessage="#{bundle.EditOtrosgastosproyectoRequiredMessage_valUnitario}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{otrosgastosproyectoController.update}" value="#{bundle.Save}" update="display,:OtrosgastosproyectoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'OtrosgastosproyectoEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="OtrosgastosproyectoEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

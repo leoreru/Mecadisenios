@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+	<ui:composition>
+
+		<p:dialog id="PersonanaturalViewDlg" widgetVar="PersonanaturalViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewPersonanaturalTitle}">
+			<h:form id="PersonanaturalViewForm">
+				<h:panelGroup id="display">
+					<p:panelGrid columns="2" rendered="#{personanaturalController.selected != null}">
+						<h:outputText value="#{bundle.ViewPersonanaturalLabel_id}"/>
+						<h:outputText value="#{personanaturalController.selected.id}" title="#{bundle.ViewPersonanaturalTitle_id}"/>
+						<h:outputText value="#{bundle.ViewPersonanaturalLabel_numDoc}"/>
+						<h:outputText value="#{personanaturalController.selected.numDoc}" title="#{bundle.ViewPersonanaturalTitle_numDoc}"/>
+						<h:outputText value="#{bundle.ViewPersonanaturalLabel_idTipoDoc}"/>
+						<h:outputText value="#{personanaturalController.selected.idTipoDoc}" title="#{bundle.ViewPersonanaturalTitle_idTipoDoc}"/>
+						<h:outputText value="#{bundle.ViewPersonanaturalLabel_nombres}"/>
+						<h:outputText value="#{personanaturalController.selected.nombres}" title="#{bundle.ViewPersonanaturalTitle_nombres}"/>
+						<h:outputText value="#{bundle.ViewPersonanaturalLabel_apellido1}"/>
+						<h:outputText value="#{personanaturalController.selected.apellido1}" title="#{bundle.ViewPersonanaturalTitle_apellido1}"/>
+						<h:outputText value="#{bundle.ViewPersonanaturalLabel_apellido2}"/>
+						<h:outputText value="#{personanaturalController.selected.apellido2}" title="#{bundle.ViewPersonanaturalTitle_apellido2}"/>
+						<h:outputText value="#{bundle.ViewPersonanaturalLabel_cargo}"/>
+						<h:outputText value="#{personanaturalController.selected.cargo}" title="#{bundle.ViewPersonanaturalTitle_cargo}"/>
+						<h:outputText value="#{bundle.ViewPersonanaturalLabel_email}"/>
+						<h:outputText value="#{personanaturalController.selected.email}" title="#{bundle.ViewPersonanaturalTitle_email}"/>
+						<h:outputText value="#{bundle.ViewPersonanaturalLabel_telefono}"/>
+						<h:outputText value="#{personanaturalController.selected.telefono}" title="#{bundle.ViewPersonanaturalTitle_telefono}"/>
+						<h:outputText value="#{bundle.ViewPersonanaturalLabel_direccion}"/>
+						<h:outputText value="#{personanaturalController.selected.direccion}" title="#{bundle.ViewPersonanaturalTitle_direccion}"/>
+						<h:outputText value="#{bundle.ViewPersonanaturalLabel_municipiosdane}"/>
+						<h:outputText value="#{personanaturalController.selected.municipiosdane}" title="#{bundle.ViewPersonanaturalTitle_municipiosdane}"/>
+					</p:panelGrid>
+					<p:commandButton value="#{bundle.Close}" onclick="PersonanaturalViewDialog.hide()"/>
+				</h:panelGroup>
+			</h:form>
+		</p:dialog>
+
+	</ui:composition>
+</html>

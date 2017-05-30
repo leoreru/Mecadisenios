@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/templateTabOtras.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListDepartamentosdaneTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="DepartamentosdaneListForm">
+                <p:panel header="#{bundle.ListDepartamentosdaneTitle}">
+                    <p:dataTable id="datalist" value="#{departamentosdaneController.items}" var="item"
+                                 selectionMode="single" selection="#{departamentosdaneController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.codDep}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+																 resizableColumns="true"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDepartamentosdaneTitle_codDep}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.codDep}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDepartamentosdaneTitle_nombre}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nombre}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{departamentosdaneController.prepareCreate}" update=":DepartamentosdaneCreateForm" oncomplete="PF('DepartamentosdaneCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":DepartamentosdaneViewForm" oncomplete="PF('DepartamentosdaneViewDialog').show()" disabled="#{empty departamentosdaneController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":DepartamentosdaneEditForm" oncomplete="PF('DepartamentosdaneEditDialog').show()" disabled="#{empty departamentosdaneController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{departamentosdaneController.destroy}" update=":growl,datalist" disabled="#{empty departamentosdaneController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>
